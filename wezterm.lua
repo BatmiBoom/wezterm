@@ -9,9 +9,12 @@ end)
 local config = {}
 
 config = wezterm.config_builder()
-config.default_prog = { "C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe" }
-config.default_cwd = "C:\\Users\\nstir\\"
 
+if package.config:sub(1, 1) == "\\" then
+	config.default_prog = { "C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe" }
+end
+
+config.default_cwd = "~"
 config.color_scheme = "rose-pine"
 config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Bold", italic = true })
 config.font_size = 10.0

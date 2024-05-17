@@ -12,12 +12,14 @@ config = wezterm.config_builder()
 
 if package.config:sub(1, 1) == "\\" then
 	config.default_prog = { "C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe" }
+	config.font_size = 10.0
+else
+	config.font_size = 12.5
 end
 
 config.default_cwd = "~"
 config.color_scheme = "rose-pine"
 config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Bold", italic = true })
-config.font_size = 10.0
 config.window_decorations = "RESIZE"
 
 config.enable_tab_bar = true

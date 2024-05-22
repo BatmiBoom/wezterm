@@ -66,8 +66,8 @@ config.colors = {
 }
 
 config.window_padding = {
-	left = 0,
-	right = 0,
+	left = 2,
+	right = 2,
 	top = 0,
 	bottom = 0,
 }

@@ -1,10 +1,6 @@
 local wezterm = require("wezterm")
+local act = wezterm.action
 local mux = wezterm.mux
-
-wezterm.on("gui-startup", function()
-	local _, _, window = mux.spawn_window({})
-	window:gui_window():maximize()
-end)
 
 local config = {}
 
@@ -14,16 +10,17 @@ if package.config:sub(1, 1) == "\\" then
 	config.default_prog = { "C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe" }
 	config.font_size = 10.0
 else
+	config.default_prog = { "/usr/local/bin/pwsh-preview" }
 	config.font_size = 12.5
 end
 
 config.default_cwd = "~"
-config.color_scheme = "rose-pine"
+config.color_scheme = "AdventureTime"
 config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Bold", italic = true })
 config.window_decorations = "RESIZE"
 
 config.enable_tab_bar = true
-config.use_fancy_tab_bar = true
+config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 
 config.window_frame = {
@@ -78,5 +75,59 @@ config.inactive_pane_hsb = {
 	saturation = 0.9,
 	brightness = 0.8,
 }
+
+config.keys = {
+	{ key = "t", mods = "CTRL|SHIFT", action = act.SpawnTab("CurrentPaneDomain") },
+	{
+		key = "x",
+		mods = "CTRL|SHIFT",
+		action = act.CloseCurrentTab({ confirm = true }),
+	},
+	{
+		key = ",",
+		mods = "CTRL|SHIFT",
+		action = act.PromptInputLine({
+			description = "Enter new name for tab",
+			action = wezterm.action_callback(function(window, _, line)
+				if line then
+					window:active_tab():set_title(line)
+				end
+			end),
+		}),
+	},
+
+	{ key = "v", mods = "CTRL|SHIFT|ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{
+		key = "h",
+		mods = "CTRL|SHIFT|ALT",
+		action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "f",
+		mods = "CTRL|SHIFT",
+		action = act.TogglePaneZoomState,
+	},
+	{
+		key = "x",
+		mods = "CTRL|SHIFT|ALT",
+		action = act.CloseCurrentPane({ confirm = true }),
+	},
+
+	{ key = "w", mods = "CTRL|SHIFT", action = act.SwitchToWorkspace },
+	{
+		key = "q",
+		mods = "CTRL|SHIFT",
+		action = act.ShowLauncherArgs({
+			flags = "FUZZY|WORKSPACES",
+		}),
+	},
+
+	{ key = "n", mods = "CTRL|SHIFT", action = act.SpawnWindow },
+}
+
+wezterm.on("gui-startup", function(cmd)
+	local tab, pane, window = mux.spawn_window(cmd or {})
+	window:gui_window():maximize()
+end)
 
 return config

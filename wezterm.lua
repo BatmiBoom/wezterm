@@ -100,7 +100,7 @@ config.keys = {
 		action = act.CloseCurrentTab({ confirm = true }),
 	},
 	{
-		key = ",",
+		key = "r",
 		mods = "CTRL|SHIFT",
 		action = act.PromptInputLine({
 			description = "Enter new name for tab",
@@ -142,7 +142,7 @@ config.keys = {
 	-- SESSIONS
 	{ key = "s", mods = "CTRL|SHIFT", action = act({ EmitEvent = "save_session" }) },
 	{ key = "l", mods = "CTRL|SHIFT", action = act({ EmitEvent = "load_session" }) },
-	{ key = "r", mods = "CTRL|SHIFT", action = act({ EmitEvent = "restore_session" }) },
+	{ key = "b", mods = "CTRL|SHIFT", action = act({ EmitEvent = "boot_session" }) },
 }
 
 -- EVENTS

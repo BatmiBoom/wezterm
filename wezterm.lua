@@ -2,6 +2,8 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local mux = wezterm.mux
 
+local workspace_manager = require("wezterm-session-manager.session-manager")
+
 local config = {}
 
 config = wezterm.config_builder()
@@ -17,12 +19,24 @@ end
 config.default_cwd = "~"
 config.color_scheme = "AdventureTime"
 config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Bold", italic = true })
-config.window_decorations = "RESIZE"
 
+-- DOMAINS
+config.wsl_domains = {
+	{
+		name = "wsl",
+		distribution = "Ubuntu-24.04",
+		-- username = "batmi",
+		-- default_cwd = "~",
+		-- default_prog = {"fish"}
+	},
+}
+-- DECORATION
+config.window_decorations = "RESIZE"
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 
+-- WINDOW
 config.window_frame = {
 	font = wezterm.font({ family = "Roboto", weight = "Bold" }),
 	font_size = 9.0,
@@ -76,7 +90,9 @@ config.inactive_pane_hsb = {
 	brightness = 0.8,
 }
 
+-- KEYS
 config.keys = {
+	-- TABS
 	{ key = "t", mods = "CTRL|SHIFT", action = act.SpawnTab("CurrentPaneDomain") },
 	{
 		key = "x",
@@ -95,7 +111,7 @@ config.keys = {
 			end),
 		}),
 	},
-
+	-- PANES
 	{ key = "v", mods = "CTRL|SHIFT|ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 	{
 		key = "h",
@@ -112,7 +128,7 @@ config.keys = {
 		mods = "CTRL|SHIFT|ALT",
 		action = act.CloseCurrentPane({ confirm = true }),
 	},
-
+	-- WORKSPACES
 	{ key = "w", mods = "CTRL|SHIFT", action = act.SwitchToWorkspace },
 	{
 		key = "q",
@@ -121,13 +137,29 @@ config.keys = {
 			flags = "FUZZY|WORKSPACES",
 		}),
 	},
-
+	-- WINDOWS
 	{ key = "n", mods = "CTRL|SHIFT", action = act.SpawnWindow },
+	-- SESSIONS
+	{ key = "s", mods = "CTRL|SHIFT", action = act({ EmitEvent = "save_session" }) },
+	{ key = "l", mods = "CTRL|SHIFT", action = act({ EmitEvent = "load_session" }) },
+	{ key = "r", mods = "CTRL|SHIFT", action = act({ EmitEvent = "restore_session" }) },
 }
+
+-- EVENTS
 
 wezterm.on("gui-startup", function(cmd)
 	local tab, pane, window = mux.spawn_window(cmd or {})
 	window:gui_window():maximize()
+end)
+
+wezterm.on("save_session", function(window)
+	workspace_manager.save_state(window)
+end)
+wezterm.on("load_session", function(window)
+	workspace_manager.load_state(window)
+end)
+wezterm.on("restore_session", function(window)
+	workspace_manager.restore_state(window)
 end)
 
 return config

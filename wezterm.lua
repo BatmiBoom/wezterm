@@ -2,8 +2,6 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local mux = wezterm.mux
 
-local workspace_manager = require("wezterm-session-manager.session-manager")
-
 local config = {}
 
 config = wezterm.config_builder()
@@ -20,16 +18,6 @@ config.default_cwd = "~"
 config.color_scheme = "AdventureTime"
 config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Bold", italic = true })
 
--- DOMAINS
-config.wsl_domains = {
-	{
-		name = "wsl",
-		distribution = "Ubuntu-24.04",
-		-- username = "batmi",
-		-- default_cwd = "~",
-		-- default_prog = {"fish"}
-	},
-}
 -- DECORATION
 config.window_decorations = "RESIZE"
 config.enable_tab_bar = true
@@ -148,18 +136,85 @@ config.keys = {
 -- EVENTS
 
 wezterm.on("gui-startup", function(cmd)
-	local tab, pane, window = mux.spawn_window(cmd or {})
-	window:gui_window():maximize()
-end)
+	local mode = os.getenv("DEV_MODE")
+	if mode == "BRANIHI" then
+		-- COSMOS
+		local cosmos_code, _, cosmos_window = mux.spawn_window({
+			workspace = "cosmos",
+			cwd = "~/BrainHi/cosmos",
+		})
+		cosmos_code:set_title("COSMOS")
 
-wezterm.on("save_session", function(window)
-	workspace_manager.save_state(window)
-end)
-wezterm.on("load_session", function(window)
-	workspace_manager.load_state(window)
-end)
-wezterm.on("restore_session", function(window)
-	workspace_manager.restore_state(window)
+		local cosmos_run, _, _ = cosmos_window:spawn_tab({})
+		cosmos_run:set_title("RUN")
+
+		local cosmos_ssh, _, _ = cosmos_window:spawn_tab({})
+		cosmos_ssh:set_title("SSH")
+
+		-- TELESCOPE
+		local telescope_code, _, telescope_window = mux.spawn_window({
+			workspace = "telescope",
+			cwd = "~/BrainHi/telescope",
+		})
+		telescope_code:set_title("TELESCOPE")
+
+		local telescope_run, _, _ = telescope_window:spawn_tab({})
+		telescope_run:set_title("RUN")
+
+		-- ROCKET
+		local rocket_code, _, rocket_window = mux.spawn_window({
+			workspace = "rocket",
+			cwd = "~/BrainHi/rocket",
+		})
+		rocket_code:set_title("ROCKET")
+
+		local rocket_run, _, _ = rocket_window:spawn_tab({})
+		rocket_run:set_title("RUN")
+
+		-- COMPONENTS
+		local components_code, _, components_window = mux.spawn_window({
+			workspace = "components",
+			cwd = "~/BrainHi/components",
+		})
+		components_code:set_title("COMPONENTS")
+
+		local components_compile, _, _ = components_window:spawn_tab({})
+		components_compile.set_title("COMPILE")
+
+		-- GENERAL
+		local general_tab, _, general_window = mux.spawn_window({
+			workspace = "general",
+			cwd = "~",
+		})
+		general_tab:set_title("GENERAL")
+
+		-- START
+		mux.set_active_workspace("general")
+		general_window:gui_window():maximize()
+	else
+		-- CODE
+		local ws_tab, _, ws_window = mux.spawn_window({
+			workspace = "windows",
+			cwd = "~/workspace/",
+		})
+		ws_tab:set_title("CODE")
+
+		-- NOTES
+		local notes_tab, _, _ = ws_window:spawn_tab({})
+		notes_tab:set_title("NOTES")
+
+		-- WSL
+		local wsl_tab, _, _ = ws_window:spawn_tab({})
+		wsl_tab:set_title("WSL")
+
+		-- CONFIG
+		local config_tab, _, _ = ws_window:spawn_tab({})
+		config_tab:set_title("CONFIG")
+
+		-- START
+		mux.set_active_workspace("windows")
+		ws_window:gui_window():maximize()
+	end
 end)
 
 return config

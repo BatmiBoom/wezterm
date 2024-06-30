@@ -135,85 +135,91 @@ config.keys = {
 
 -- EVENTS
 
-wezterm.on("gui-startup", function(cmd)
-	local mode = os.getenv("DEV_MODE")
-	if mode == "BRANIHI" then
-		-- COSMOS
-		local cosmos_code, _, cosmos_window = mux.spawn_window({
-			workspace = "cosmos",
-			cwd = "~/BrainHi/cosmos",
-		})
-		cosmos_code:set_title("COSMOS")
+wezterm.on("gui-startup", function()
+	local mode = "BRAINHI"
+	if mode == "BRAINHI" then
+		local projects = {
+			{
+				name = "COSMOS",
+				cwd = "/Users/batmi/BrainHi/cosmos/",
+			},
+			{
+				name = "TELESCOPE",
+				cwd = "/Users/batmi/BrainHi/telescope/",
+			},
+			{
+				name = "ROCKET",
+				cwd = "/Users/batmi/BrainHi/rocket/",
+			},
+			{
+				name = "COMPONENTS",
+				cwd = "/Users/batmi/BrainHi/components/",
+			},
+			{
+				name = "DOCUMENTATION",
+				cwd = "/Users/batmi/BrainHi/documentation/",
+			},
+			{
+				name = "CONFIG",
+				cwd = "/Users/batmi/.config/",
+			},
+			{
+				name = "GENERAL",
+				cwd = "/Users/batmi/",
+			},
+		}
 
-		local cosmos_run, _, _ = cosmos_window:spawn_tab({})
-		cosmos_run:set_title("RUN")
+		for _, value in pairs(projects) do
+			local code_tab, _, code_window = mux.spawn_window({
+				workspace = value["name"],
+				cwd = value["cwd"],
+			})
+			code_tab:set_title(value["name"])
 
-		local cosmos_ssh, _, _ = cosmos_window:spawn_tab({})
-		cosmos_ssh:set_title("SSH")
+			if value["name"] ~= "CONFIG" then
+				local code_run, _, _ = code_window:spawn_tab({})
+				code_run:set_title("RUN")
+			end
 
-		-- TELESCOPE
-		local telescope_code, _, telescope_window = mux.spawn_window({
-			workspace = "telescope",
-			cwd = "~/BrainHi/telescope",
-		})
-		telescope_code:set_title("TELESCOPE")
+			if value["name"] == "COSMOS" then
+				local code_ssh, _, _ = code_window:spawn_tab({})
+				code_ssh:set_title("SSH")
+			end
+		end
 
-		local telescope_run, _, _ = telescope_window:spawn_tab({})
-		telescope_run:set_title("RUN")
-
-		-- ROCKET
-		local rocket_code, _, rocket_window = mux.spawn_window({
-			workspace = "rocket",
-			cwd = "~/BrainHi/rocket",
-		})
-		rocket_code:set_title("ROCKET")
-
-		local rocket_run, _, _ = rocket_window:spawn_tab({})
-		rocket_run:set_title("RUN")
-
-		-- COMPONENTS
-		local components_code, _, components_window = mux.spawn_window({
-			workspace = "components",
-			cwd = "~/BrainHi/components",
-		})
-		components_code:set_title("COMPONENTS")
-
-		local components_compile, _, _ = components_window:spawn_tab({})
-		components_compile.set_title("COMPILE")
-
-		-- GENERAL
-		local general_tab, _, general_window = mux.spawn_window({
-			workspace = "general",
-			cwd = "~",
-		})
-		general_tab:set_title("GENERAL")
-
-		-- START
-		mux.set_active_workspace("general")
-		general_window:gui_window():maximize()
+		mux.set_active_workspace("COSMOS")
 	else
-		-- CODE
-		local ws_tab, _, ws_window = mux.spawn_window({
-			workspace = "windows",
-			cwd = "~/workspace/",
-		})
-		ws_tab:set_title("CODE")
+		local projects = {
+			{
+				name = "PROJECTS",
+				cwd = "C:\\Users\\nstir\\worksapce\\github.com\\batmiboom",
+			},
+			{
+				name = "NOTES",
+				cwd = "C:\\Users\\nstir\\worksapce\\notes",
+			},
+			{
+				name = "NVIM - PLUGINS",
+				cwd = "C:\\Users\\nstir\\worksapce\\nvim",
+			},
+			{
+				name = "GENERAL",
+				cwd = "C:\\Users\\nstir\\worksapce\\notes",
+			},
+		}
 
-		-- NOTES
-		local notes_tab, _, _ = ws_window:spawn_tab({})
-		notes_tab:set_title("NOTES")
+		for _, value in pairs(projects) do
+			local code_tab, _, code_window = mux.spawn_window({
+				workspace = value["name"],
+				cwd = value["cwd"],
+			})
+			code_tab:set_title(value["name"])
 
-		-- WSL
-		local wsl_tab, _, _ = ws_window:spawn_tab({})
-		wsl_tab:set_title("WSL")
+			local code_run, _, _ = code_window:spawn_tab({})
+			code_run:set_title("RUN")
+		end
 
-		-- CONFIG
-		local config_tab, _, _ = ws_window:spawn_tab({})
-		config_tab:set_title("CONFIG")
-
-		-- START
-		mux.set_active_workspace("windows")
-		ws_window:gui_window():maximize()
+		mux.set_active_workspace("PROJECTS")
 	end
 end)
 

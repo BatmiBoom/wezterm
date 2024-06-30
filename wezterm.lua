@@ -193,23 +193,23 @@ wezterm.on("gui-startup", function()
 		local projects = {
 			{
 				name = "GENERAL",
-				cwd = "C:\\Users\\nstir\\worksapce\\",
+				cwd = "C:/Users/nstir/worksapce/",
 			},
 			{
 				name = "PROJECTS",
-				cwd = "C:\\Users\\nstir\\worksapce\\github.com\\batmiboom",
+				cwd = "C:/Users/nstir/worksapce/github.com/batmiboom",
 			},
 			{
 				name = "NOTES",
-				cwd = "C:\\Users\\nstir\\worksapce\\notes",
+				cwd = "C:/Users/nstir/worksapce/notes",
 			},
 			{
 				name = "NVIM - PLUGINS",
-				cwd = "C:\\Users\\nstir\\worksapce\\nvim",
+				cwd = "C:/Users/nstir/worksapce/nvim",
 			},
 			{
 				name = "CONFIG",
-				cwd = "C:\\Users\\nstir\\",
+				cwd = "C:/Users/nstir/",
 			},
 		}
 

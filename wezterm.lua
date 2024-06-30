@@ -136,7 +136,7 @@ config.keys = {
 -- EVENTS
 
 wezterm.on("gui-startup", function()
-	local mode = "BRAINHI"
+	local mode = "PERSONAL"
 	if mode == "BRAINHI" then
 		local projects = {
 			{
@@ -175,6 +175,7 @@ wezterm.on("gui-startup", function()
 				cwd = value["cwd"],
 			})
 			code_tab:set_title(value["name"])
+			code_tab:activate()
 
 			if value["name"] ~= "CONFIG" then
 				local code_run, _, _ = code_window:spawn_tab({})
@@ -191,6 +192,10 @@ wezterm.on("gui-startup", function()
 	else
 		local projects = {
 			{
+				name = "GENERAL",
+				cwd = "C:\\Users\\nstir\\worksapce\\",
+			},
+			{
 				name = "PROJECTS",
 				cwd = "C:\\Users\\nstir\\worksapce\\github.com\\batmiboom",
 			},
@@ -203,8 +208,8 @@ wezterm.on("gui-startup", function()
 				cwd = "C:\\Users\\nstir\\worksapce\\nvim",
 			},
 			{
-				name = "GENERAL",
-				cwd = "C:\\Users\\nstir\\worksapce\\notes",
+				name = "CONFIG",
+				cwd = "C:\\Users\\nstir\\",
 			},
 		}
 
@@ -214,12 +219,13 @@ wezterm.on("gui-startup", function()
 				cwd = value["cwd"],
 			})
 			code_tab:set_title(value["name"])
+			code_tab:activate()
 
 			local code_run, _, _ = code_window:spawn_tab({})
 			code_run:set_title("RUN")
 		end
 
-		mux.set_active_workspace("PROJECTS")
+		mux.set_active_workspace("GENERAL")
 	end
 end)
 

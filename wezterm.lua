@@ -1,8 +1,5 @@
-local kill = require("kill")
-
 local wezterm = require("wezterm")
 local act = wezterm.action
-local mux = wezterm.mux
 
 local config = {}
 
@@ -125,52 +122,8 @@ config.keys = {
 	},
 	-- WINDOWS
 	{ key = "n", mods = "CTRL|SHIFT", action = act.SpawnWindow },
-	-- SESSIONS
-	{
-		key = "k",
-		mods = "CTRL|SHIFT",
-		action = wezterm.action_callback(function(window)
-			local w = window:active_workspace()
-			kill.workspace(w)
-		end),
-	},
 }
 
--- EVENTS
-wezterm.on("gui-startup", function()
-	local projects = {
-		{
-			name = "GENERAL",
-			cwd = "C:/Users/nstir/",
-		},
-		{
-			name = "PROJECTS",
-			cwd = "C:/Users/nstir/workspace/github.com/batmiboom",
-		},
-		{
-			name = "CONFIG",
-			cwd = "C:/Users/nstir/.config",
-		},
-	}
-
-	for _, value in pairs(projects) do
-		local code_tab, _, code_window = mux.spawn_window({
-			workspace = value["name"],
-			cwd = value["cwd"],
-		})
-		code_tab:set_title(value["name"])
-
-		if value["name"] == "PROJECTS" then
-			local notes_tab, _, _ = code_window:spawn_tab({
-				cwd = "C:/Users/nstir/workspace/notes",
-			})
-			notes_tab:set_title("NOTES")
-		end
-
-		code_tab:activate()
-	end
-
-	mux.set_active_workspace("GENERAL")
-end)
+require("workspace_config").on_startup()
 
 return config

@@ -95,10 +95,10 @@ config.keys = {
 		}),
 	},
 	-- PANES
-	{ key = "v", mods = "CTRL|SHIFT|ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ key = "v", mods = "CTRL|SHIFT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 	{
 		key = "h",
-		mods = "CTRL|SHIFT|ALT",
+		mods = "CTRL|SHIFT",
 		action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
@@ -108,7 +108,7 @@ config.keys = {
 	},
 	{
 		key = "x",
-		mods = "CTRL|SHIFT|ALT",
+		mods = "CTRL|SHIFT",
 		action = act.CloseCurrentPane({ confirm = true }),
 	},
 	-- WORKSPACES
@@ -124,6 +124,10 @@ config.keys = {
 	{ key = "n", mods = "CTRL|SHIFT", action = act.SpawnWindow },
 }
 
+-- EVENTS START UP
 require("workspace_config").on_startup()
+
+-- PLUGINS
+require("smart_splits").smart_split(wezterm, config)
 
 return config

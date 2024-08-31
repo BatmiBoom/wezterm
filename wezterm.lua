@@ -10,9 +10,12 @@ config = wezterm.config_builder()
 
 config.default_prog = { "pwsh" }
 
-config.color_scheme = "AdventureTime"
 config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Bold", italic = true })
 config.font_size = 10.0
+
+-- THEMES
+config.color_scheme_dirs = { "./colorscheme" }
+config.color_scheme = "tokyonight_storm"
 
 -- DECORATION
 config.window_decorations = "RESIZE"

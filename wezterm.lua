@@ -12,7 +12,7 @@ config.font_size = 20.0
 
 -- THEMES
 config.color_scheme_dirs = { "./colorscheme" }
-config.color_scheme = "Catppuccin Mocha"
+config.color_scheme = "carboxfox"
 
 -- DECORATION
 config.window_decorations = "RESIZE"
@@ -27,38 +27,6 @@ config.window_frame = {
 	inactive_titlebar_bg = "#333333",
 }
 
-config.colors = {
-	tab_bar = {
-		background = "#0b0022",
-		active_tab = {
-			bg_color = "#2b2042",
-			fg_color = "#c0c0c0",
-			intensity = "Normal",
-			underline = "None",
-			italic = false,
-			strikethrough = false,
-		},
-		inactive_tab = {
-			bg_color = "#1b1032",
-			fg_color = "#808080",
-		},
-		inactive_tab_hover = {
-			bg_color = "#3b3052",
-			fg_color = "#909090",
-			italic = true,
-		},
-		new_tab = {
-			bg_color = "#1b1032",
-			fg_color = "#808080",
-		},
-		new_tab_hover = {
-			bg_color = "#3b3052",
-			fg_color = "#909090",
-			italic = true,
-		},
-	},
-}
-
 config.window_padding = {
 	left = 1,
 	right = 1,
@@ -67,11 +35,6 @@ config.window_padding = {
 }
 
 config.window_background_opacity = 1.0
-
-config.inactive_pane_hsb = {
-	saturation = 0.9,
-	brightness = 0.8,
-}
 
 -- KEYS
 config.keys = {

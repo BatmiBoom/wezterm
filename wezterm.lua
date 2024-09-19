@@ -5,14 +5,14 @@ local config = {}
 
 config = wezterm.config_builder()
 
-config.default_prog = { "pwsh" }
+config.default_prog = { "/usr/local/bin/pwsh-preview" }
 
-config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Bold", italic = true })
-config.font_size = 10.0
+config.font = wezterm.font("IosevkaTerm Nerd Font", { weight = "Bold", italic = false })
+config.font_size = 20.0
 
 -- THEMES
 config.color_scheme_dirs = { "./colorscheme" }
-config.color_scheme = "tokyonight_storm"
+config.color_scheme = "Catppuccin Mocha"
 
 -- DECORATION
 config.window_decorations = "RESIZE"
@@ -60,13 +60,13 @@ config.colors = {
 }
 
 config.window_padding = {
-	left = 2,
-	right = 2,
+	left = 1,
+	right = 1,
 	top = 0,
 	bottom = 0,
 }
 
-config.window_background_opacity = 0.8
+config.window_background_opacity = 1.0
 
 config.inactive_pane_hsb = {
 	saturation = 0.9,

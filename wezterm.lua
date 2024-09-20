@@ -5,10 +5,10 @@ local config = {}
 
 config = wezterm.config_builder()
 
-config.default_prog = { "/usr/local/bin/pwsh-preview" }
+config.default_prog = { "pwsh-preview" }
 
 config.font = wezterm.font("IosevkaTerm Nerd Font", { weight = "Bold", italic = false })
-config.font_size = 20.0
+config.font_size = 15.0
 
 -- THEMES
 config.color_scheme_dirs = { "./colorscheme" }

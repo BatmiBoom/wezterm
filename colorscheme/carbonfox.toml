@@ -79,38 +79,3 @@ intensity = "Normal"
 italic = false
 strikethrough = false
 underline = "None"
-strikethrough = false
-underline = "None"
-
-[colors.tab_bar.new_tab]
-bg_color = "#161616"
-fg_color = "#b6b8bb"
-intensity = "Normal"
-italic = false
-strikethrough = false
-underline = "None"
-
-[colors.tab_bar.new_tab_hover]
-bg_color = "#353535"
-fg_color = "#f2f4f8"
-intensity = "Normal"
-italic = false
-strikethrough = false
-underline = "None"
-underline = "None"
-
-[colors.tab_bar.new_tab]
-bg_color = "#161616"
-fg_color = "#b6b8bb"
-intensity = "Normal"
-italic = false
-strikethrough = false
-underline = "None"
-
-[colors.tab_bar.new_tab_hover]
-bg_color = "#353535"
-fg_color = "#f2f4f8"
-intensity = "Normal"
-italic = false
-strikethrough = false
-underline = "None"

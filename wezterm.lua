@@ -12,7 +12,7 @@ config.font_size = 15.0
 
 -- THEMES
 config.color_scheme_dirs = { "./colorscheme" }
-config.color_scheme = "carboxfox"
+config.color_scheme = "carbonfox"
 
 -- DECORATION
 config.window_decorations = "RESIZE"

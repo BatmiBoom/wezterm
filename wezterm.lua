@@ -58,7 +58,7 @@ config.keys = {
 		}),
 	},
 	-- PANES
-	{ key = "v", mods = "CTRL|SHIFT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ key = "s", mods = "CTRL|SHIFT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 	{
 		key = "h",
 		mods = "CTRL|SHIFT",

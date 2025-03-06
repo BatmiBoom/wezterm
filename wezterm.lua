@@ -12,10 +12,10 @@ config.font_size = 15.0
 
 -- THEMES
 config.color_scheme_dirs = { "./colorscheme" }
-config.color_scheme = "carbonfox"
+config.color_scheme = "OneDark (base16)"
 
 -- DECORATION
-config.window_decorations = "RESIZE"
+config.window_decorations = "NONE"
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
 

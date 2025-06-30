@@ -12,7 +12,7 @@ config.font_size = 15.0
 
 -- THEMES
 config.color_scheme_dirs = { "./colorscheme" }
-config.color_scheme = "OneDark (base16)"
+config.color_scheme = "Kanagawa (Gogh)"
 
 -- DECORATION
 config.window_decorations = "NONE"
